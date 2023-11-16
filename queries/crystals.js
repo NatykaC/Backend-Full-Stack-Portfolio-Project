@@ -9,9 +9,21 @@ const getAllCrystals = async()=>{
     }
 };
 
+const getCrystal = async(id)=>{
+    try {
+        const oneCrystal = await db.one("SELECT * FROM crystals WHERE id=$1", id)
+        return oneCrystal
+    } catch (error) {
+        return(error)
+    }
+};
 
 
 
 
 
-module.exports = {getAllCrystals};
+
+module.exports = {
+    getAllCrystals,
+    getCrystal
+};
