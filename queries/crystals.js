@@ -18,6 +18,17 @@ const getCrystal = async(id)=>{
     }
 };
 
+const createCrystal = async (crystal)=>{
+    try {
+        const newCrystal = await db.one(
+            "INSERT INTO crystals (name, color, hardness, rarity, can_be_water_cleansed, healing_effects, collected_on, favorite) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+            [crystal.name, crystal.color, crystal.hardness, crystal.rarity, crystal.can_be_water_cleansed, crystal.healing_effects, crystal.collected_on, crystal.favorite]
+        )
+        return newCrystal
+    } catch (error) {
+        return error
+    }
+};
 
 
 
@@ -25,5 +36,6 @@ const getCrystal = async(id)=>{
 
 module.exports = {
     getAllCrystals,
-    getCrystal
+    getCrystal,
+    createCrystal
 };

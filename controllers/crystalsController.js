@@ -1,6 +1,7 @@
 const express = require("express");
 const crystals = express.Router();
-const {getAllCrystals, getCrystal} = require("../queries/crystals.js");
+const {getAllCrystals, getCrystal, createCrystal} = require("../queries/crystals.js");
+const {checkName, checkColor, checkBooleans} = require("../validations/checkCrystals.js")
 
 crystals.get("/", async (req, res)=>{
     const allCrystals = await getAllCrystals()
@@ -18,6 +19,15 @@ crystals.get("/:id", async (req, res)=>{
         res.status(200).json(oneCrystal)
     } else {
         res.status(404).json({error: "Crystal Not Found!!"})
+    }
+});
+
+crystals.post("/", checkName, checkColor, async (req, res)=>{
+    const newCrystal = await createCrystal(req.body)
+    if (newCrystal){
+        res.status(200).json(newCrystal)
+    } else {
+        res.status(400).json({error: "Crystal Not Added!"})
     }
 });
 
