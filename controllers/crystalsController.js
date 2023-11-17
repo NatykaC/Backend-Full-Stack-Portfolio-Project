@@ -1,6 +1,6 @@
 const express = require("express");
 const crystals = express.Router();
-const {getAllCrystals, getCrystal, createCrystal} = require("../queries/crystals.js");
+const {getAllCrystals, getCrystal, createCrystal, deleteCrystal, updateCrystal} = require("../queries/crystals.js");
 const {checkName, checkColor, checkBooleans} = require("../validations/checkCrystals.js")
 
 crystals.get("/", async (req, res)=>{
@@ -30,5 +30,26 @@ crystals.post("/", checkName, checkColor, async (req, res)=>{
         res.status(400).json({error: "Crystal Not Added!"})
     }
 });
+
+crystals.delete("/:id", async (req, res)=>{
+    const {id} = req.params;
+    const deletedCrystal = await deleteCrystal(id)
+    if(deletedCrystal.id){
+        res.status(200).json(deletedCrystal)
+    } else {
+        res.status(404).json({error: "Crystal Not Deleted!! Unable to find crystal at ID provided!"})
+    }
+});
+
+crystals.put("/:id", checkName, checkColor, async (req, res)=>{
+    const {id} = req.params;
+    const updatedCrystal = await updateCrystal(id, req.body)
+    if(updatedCrystal.id){
+        res.status(200).json(updatedCrystal)
+    } else {
+        res.status(404).json({error: "Crystal Not Updated!! Unable to find crystal at ID provided!"})
+    }
+})
+
 
 module.exports = crystals;

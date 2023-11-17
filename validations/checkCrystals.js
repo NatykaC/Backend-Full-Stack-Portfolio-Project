@@ -25,8 +25,9 @@ const checkColor = (req, res, next)=>{
 };
 
 
+
 module.exports = {
     checkName,
     checkBooleans, 
-    checkColor
+    checkColor,
 }
