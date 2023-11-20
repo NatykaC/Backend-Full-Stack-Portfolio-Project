@@ -7,10 +7,10 @@ CREATE TABLE crystals (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     color VARCHAR(50) NOT NULL,
-    hardness INTEGER,
+    hardness INTEGER CHECK (hardness > 0),
     rarity TEXT,
-    can_be_water_cleansed BOOLEAN,
+    can_be_water_cleansed BOOLEAN DEFAULT false,
     healing_effects TEXT,
-    collected_on DATE,
-    favorite BOOLEAN
+    collected_on TIMESTAMPTZ,
+    favorite BOOLEAN DEFAULT false
 )

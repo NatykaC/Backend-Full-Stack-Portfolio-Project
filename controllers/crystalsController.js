@@ -1,12 +1,21 @@
 const express = require("express");
 const crystals = express.Router();
-const {getAllCrystals, getCrystal, createCrystal, deleteCrystal, updateCrystal} = require("../queries/crystals.js");
+const {getAllCrystals, getCrystal, createCrystal, deleteCrystal, updateCrystal, favoriteCrystals} = require("../queries/crystals.js");
 const {checkName, checkColor, checkBooleans} = require("../validations/checkCrystals.js")
 
 crystals.get("/", async (req, res)=>{
     const allCrystals = await getAllCrystals()
     if(allCrystals[0]){
         res.status(200).json(allCrystals)
+    } else {
+        res.status(500).json({error: "SERVER ERROR!"})
+    }
+});
+
+crystals.get("/crystals/favorites", async (req, res)=>{
+    const favCrystals = await favoriteCrystals()
+    if(favCrystals[0]){
+        res.status(200).json(favCrystals)
     } else {
         res.status(500).json({error: "SERVER ERROR!"})
     }

@@ -2,7 +2,7 @@ const db = require("../db/dbConfig.js")
 
 const getAllCrystals = async()=>{
     try {
-        const allCrystals = await db.any("SELECT * FROM crystals")
+        const allCrystals = await db.any("SELECT * FROM crystals ORDER BY name ASC")
         return allCrystals
     } catch (error) {
         return error
@@ -49,6 +49,14 @@ const updateCrystal = async (id, crystal)=>{
     }
 };
 
+const favoriteCrystals = async (favorite)=>{
+    try {
+        const allFavorite = await db.any("SELECT * FROM crystals WHERE favorite = true")
+        return allFavorite
+    } catch (error) {
+        return error
+    }
+}
 
 
 
@@ -57,5 +65,6 @@ module.exports = {
     getCrystal,
     createCrystal, 
     deleteCrystal,
-    updateCrystal
+    updateCrystal,
+    favoriteCrystals
 };
