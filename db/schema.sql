@@ -13,4 +13,4 @@ CREATE TABLE crystals (
     healing_effects TEXT,
     collected_on TIMESTAMPTZ,
     favorite BOOLEAN DEFAULT false
-)
+);
