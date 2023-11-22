@@ -1,7 +1,7 @@
 const express = require("express");
 const crystals = express.Router();
 const {getAllCrystals, getCrystal, createCrystal, deleteCrystal, updateCrystal, favoriteCrystals} = require("../queries/crystals.js");
-const {checkName, checkColor, checkBooleans} = require("../validations/checkCrystals.js")
+const {checkName, checkColor} = require("../validations/checkCrystals.js")
 
 crystals.get("/", async (req, res)=>{
     const allCrystals = await getAllCrystals()

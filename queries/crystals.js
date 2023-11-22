@@ -49,14 +49,6 @@ const updateCrystal = async (id, crystal)=>{
     }
 };
 
-const favoriteCrystals = async (favorite)=>{
-    try {
-        const allFavorite = await db.any("SELECT * FROM crystals WHERE favorite = true")
-        return allFavorite
-    } catch (error) {
-        return error
-    }
-}
 
 
 
@@ -66,5 +58,4 @@ module.exports = {
     createCrystal, 
     deleteCrystal,
     updateCrystal,
-    favoriteCrystals
 };
